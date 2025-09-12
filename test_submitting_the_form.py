@@ -1,0 +1,35 @@
+
+from selene import browser, be, have
+from selenium.webdriver.chrome.options import Options
+import os
+
+
+
+def test_submitting_the_form(windows_size):
+    options = Options()
+    # Запуск браузера без графического интерфейса:
+    # options.add_argument('--headless')
+
+    browser.config.driver_options = options
+    browser.open("https://demoqa.com/automation-practice-form")
+    browser.element('#firstName').type('Юлия')
+    browser.element('#lastName').type('Смыкова')
+    browser.element('#userEmail').type('julieta-petrova@yandex.ru')
+    browser.element('label[for="gender-radio-2"]').click()
+    browser.element('#userNumber').type('9111177777')
+    browser.element('#dateOfBirthInput').click()
+    browser.element('.react-datepicker__month-select').all('option')[1].click()
+    browser.element('.react-datepicker__year-select').element('option[value="1990"]').click()
+    browser.element('.react-datepicker__day--020').click()
+    browser.element('#subjectsInput').type('test')
+    browser.element('label[for="hobbies-checkbox-1"]').click()
+    browser.element('#uploadPicture').type(os.path.abspath('D:/file_1.txt'))
+    browser.element('[placeholder="Current Address"]').type('Адрес')
+    browser.element('[class=" css-1hwfws3"]').click()
+    browser.element('//div[contains(text(), "Uttar Pradesh")]').hover().click()
+    browser.element('[class=" css-yk16xz-control"]').click()
+    browser.element('//div[contains(text(), "Merrut")]').hover().click()
+    browser.element('#submit').click()
+    browser.element('#example-modal-sizes-title-lg').should(have.text('Thanks for submitting the form'))
+
+
