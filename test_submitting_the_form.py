@@ -21,9 +21,9 @@ def test_submitting_the_form(windows_size):
     browser.element('.react-datepicker__month-select').all('option')[1].click()
     browser.element('.react-datepicker__year-select').element('option[value="1990"]').click()
     browser.element('.react-datepicker__day--020').click()
-    browser.element('#subjectsInput').type('test')
+    browser.element('#subjectsInput').with_(timeout=7).type('test')
     browser.element('label[for="hobbies-checkbox-1"]').click()
-    browser.element('#uploadPicture').type(os.path.abspath('D:/file_1.txt'))
+    browser.element('#uploadPicture').type(os.path.abspath('file_1.txt'))
     browser.element('[placeholder="Current Address"]').type('Адрес')
     browser.element('[class=" css-1hwfws3"]').click()
     browser.element('//div[contains(text(), "Uttar Pradesh")]').hover().click()
@@ -31,5 +31,7 @@ def test_submitting_the_form(windows_size):
     browser.element('//div[contains(text(), "Merrut")]').hover().click()
     browser.element('#submit').click()
     browser.element('#example-modal-sizes-title-lg').should(have.text('Thanks for submitting the form'))
+    browser.element('.modal-title').should(have.text('Thanks for submitting the form'))
+    browser.element('#closeLargeModal').click()
 
 
