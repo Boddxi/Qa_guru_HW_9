@@ -1,5 +1,5 @@
 from selene import browser
-import os
+from Part_1.utils.resourses import get_resource_path
 
 
 class RegistrationPage:
@@ -35,7 +35,8 @@ class RegistrationPage:
         browser.element('label[for="hobbies-checkbox-1"]').click()
 
     def load_picture(self):
-        browser.element('#uploadPicture').set_value(os.path.abspath('Part_1/resources/file_1.txt'))
+        file_path = get_resource_path('file_1.txt')
+        browser.element('#uploadPicture').set_value(file_path)
 
     def fill_adress(self, adress):
         browser.element('[placeholder="Current Address"]').type(adress)

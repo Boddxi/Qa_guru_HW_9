@@ -10,4 +10,4 @@ class SimpleUsers:
 
 
 student = SimpleUsers(full_name='Juliya Smykova', email='julieta-petrova@yandex.ru',
-                      current_address='Adress1', permanent_address='Adress2')
+                      current_address='Address1', permanent_address='Address2')
