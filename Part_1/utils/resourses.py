@@ -6,3 +6,5 @@ def get_resource_path(filename):
     file_path = os.path.join(resources_dir, filename)
     absolute_path = os.path.abspath(file_path)
     return absolute_path
+
+
