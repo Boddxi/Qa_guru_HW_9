@@ -13,31 +13,27 @@ class RegistrationPage2:
         self.gender_female = browser.element('label[for="gender-radio-2"]')
         self.gender_other = browser.element('label[for="gender-radio-3"]')
         self.field_mobile_number = browser.element('#userNumber')
+        self.field_date_of_birth = browser.element('#dateOfBirthInput')
+        self.date_picker_month = browser.element('.react-datepicker__month-select')
+        self.value_month = 'option'
+        self.date_picker_year = browser.element('.react-datepicker__year-select')
+        self.value_year = 'option[value="1990"]'
+        self.date_picker_day = browser.element('.react-datepicker__day--020')
         self.field_subjects = browser.element('#subjectsInput')
         self.check_box_hobbies_sports = browser.element('label[for="hobbies-checkbox-1"]')
         self.check_box_hobbies_reading = browser.element('label[for="hobbies-checkbox-2"]')
         self.check_box_hobbies_music = browser.element('label[for="hobbies-checkbox-3"]')
         self.button_picture_selection = browser.element('#uploadPicture')
         self.field_current_address = browser.element('[placeholder="Current Address"]')
+        self.field_state = browser.element('[class=" css-1hwfws3"]')
+        self.state_uttar_pradesh = browser.element('//div[contains(text(), "Uttar Pradesh")]')
+        self.field_city = browser.element('[class=" css-yk16xz-control"]')
+        self.city_merrut = browser.element('//div[contains(text(), "Merrut")]')
         self.button_submit = browser.element('#submit')
         self.value_modal_window_result = browser.all('.table-responsive tbody tr td')
 
     def open(self):
         browser.open("https://demoqa.com/automation-practice-form")
-
-    def chose_date_of_birth(self,date_of_birth):
-        browser.element('#dateOfBirthInput').click()
-        browser.element('.react-datepicker__month-select').all('option')[date_of_birth.month-1].click()
-        browser.element('.react-datepicker__year-select').element(f'option[value="{date_of_birth.year}"]').click()
-        browser.element(f'.react-datepicker__day--0{date_of_birth.day}').click()
-
-    def chose_state(self,state):
-        browser.element('[class=" css-1hwfws3"]').click()
-        browser.element(f'//div[contains(text(), "{state}")]').hover().click()
-
-    def choose_city(self,city):
-        browser.element('[class=" css-yk16xz-control"]').click()
-        browser.element(f'//div[contains(text(), "{city}")]').hover().click()
 
     def _select_gender(self, gender: Gender):
         gender_selectors = {
@@ -62,13 +58,18 @@ class RegistrationPage2:
         self.field_user_email.type(user.email)
         self._select_gender(user.gender)
         self.field_mobile_number.type(user.mobile_number)
-        self.chose_date_of_birth(user.date_of_birth)
+        self.field_date_of_birth.click()
+        self.date_picker_month.all(self.value_month)[1].click()
+        self.date_picker_year.element(self.value_year).click()
+        self.date_picker_day.click()
         self.field_subjects.type(user.subject.value).press_enter()
         self._select_hobby(user.hobby)
-        self.button_picture_selection.set_value(get_resource_path(user.picture))
+        self.button_picture_selection.set_value(get_resource_path('file_1.txt'))
         self.field_current_address.type(user.current_address)
-        self.chose_state(user.state)
-        self.choose_city(user.city)
+        self.field_state.click()
+        self.state_uttar_pradesh.hover().click()
+        self.field_city.click()
+        self.city_merrut.hover().click()
         self.button_submit.click()
 
     def should_have_registered(self, user: User):
